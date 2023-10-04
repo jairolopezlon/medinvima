@@ -10,23 +10,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-      - uses: actions/checkout@v3
+        uses: actions/checkout@v3
       - name: Run tests
-      - run: npm install
-      - run: npm run test
+        run: |
+            npm install
+            npm run test
 
   Deployment:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-      - uses: actions/checkout@v3
-      - with:
+        uses: actions/checkout@v3
+        with:
           ref: main
-      - run: npm install
-      - run: npm run build
+      - name: Install dependencies
+        run: npm install
+      - name: Build
+        run: npm run build
       - name: Deploy to production
-      - uses: FirebaseExtended/action-hosting-deploy@v0
-      - with:
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_MEDINVIMA }}'
           channelId: live
