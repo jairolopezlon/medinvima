@@ -1,1 +1,1 @@
-const bar = 'test';
+const bar = 'tests';
