@@ -1,0 +1,14 @@
+.eslintrc.json
+.eslintrc.js
+commitlint.config.js
+dist
+build
+jest.config.js
+next.config.js
+next-env.d.ts
+postcss.config.js
+tailwind.config.ts
+firebase.json
+tsconfig.json
+jest.setup.ts
+.github
