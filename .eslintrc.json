@@ -1,3 +1,61 @@
 {
-  "extends": "next/core-web-vitals"
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "node": true
+    },
+    "settings": {
+        "react":{
+            "version":"detect"
+        }
+    },
+    "extends": [
+        "plugin:@next/next/recommended",
+        "eslint:all",
+        "plugin:jest-dom/recommended",
+        "plugin:testing-library/react",
+        "plugin:react/all",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:react/jsx-runtime",
+        "standard-with-typescript",
+        "eslint-config-prettier"
+    ],
+    "overrides": [
+        {
+            "env": {
+                "node": true
+            },
+            "files": [
+                ".eslintrc.{js,cjs}", "./**/*.js"
+            ],
+            "parserOptions": {
+                "sourceType": "script"
+            },
+            "extends": ["plugin:@typescript-eslint/disable-type-checked"]            
+        }
+    ],
+    "parserOptions": {
+        "parser": "@typescript-eslint/parser",
+        "ecmaVersion": "latest",
+        "sourceType": "module",
+        "project": "./tsconfig.json" 
+    },
+    "plugins": [
+        "react"
+    ],
+    "rules": {
+        "react/jsx-no-literals": "off",
+        "function-call-argument-newline": "off",
+        "react/jsx-filename-extension": [
+            1,
+            {
+              "extensions": [
+                ".js",
+                ".jsx",
+                ".ts",
+                ".tsx"
+              ]
+            }
+          ]
+    }
 }
