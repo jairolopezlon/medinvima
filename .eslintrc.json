@@ -44,6 +44,7 @@
         "react"
     ],
     "rules": {
+        "react/jsx-max-depth": ["error", { "max": 5 }],
         "react/jsx-no-literals": "off",
         "function-call-argument-newline": "off",
         "react/jsx-filename-extension": [
