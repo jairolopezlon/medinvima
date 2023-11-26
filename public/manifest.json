@@ -3,7 +3,7 @@
     "background_color": "#dce7f3",
     "display": "fullscreen",
     "scope": "/",
-    "start_url": "/",
+    "start_url": "/app",
     "name": "Medinvima",
     "description": "Registros sanitarios de medicamentos INVIMA",
     "short_name": "Medinvima",
