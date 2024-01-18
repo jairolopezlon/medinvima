@@ -46,6 +46,11 @@
     "rules": {
         "react/jsx-max-depth": ["error", { "max": 5 }],
         "react/jsx-no-literals": "off",
+        "allowArrowFunctions": "off",
+        "no-ternary":"off",
+        "max-lines-per-function": ["error", 80],
+        "react/jsx-no-bind": "off",
+        "react/require-default-props": "off",
         "function-call-argument-newline": "off",
         "react/jsx-filename-extension": [
             1,
