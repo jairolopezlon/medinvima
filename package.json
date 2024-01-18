@@ -12,12 +12,6 @@
     "test:w": "jest --watchAll",
     "test": "jest"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "npx lint-staged && npm run test"
-    }
-  },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": "eslint"
   },
