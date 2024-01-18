@@ -1,0 +1,29 @@
+export interface ICumItem {
+  atc: string
+  cantidad: string
+  cantidadcum: string
+  concentracion: string
+  consecutivocum: string
+  descripcionatc: string
+  descripcioncomercial: string
+  estadocum: string
+  estadoregistro: string
+  expediente: string
+  expedientecum: string
+  fechaactivo: string
+  fechaexpedicion: string
+  fechainactivo?: string
+  formafarmaceutica: string
+  modalidad: string
+  muestramedica: string
+  nombrerol: string
+  principioactivo: string
+  producto: string
+  registrosanitario: string
+  tiporol: string
+  titular: string
+  unidad: string
+  unidadmedida: string
+  unidadreferencia: string
+  viaadministracion: string
+}
