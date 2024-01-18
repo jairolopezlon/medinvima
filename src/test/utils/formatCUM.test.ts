@@ -6,9 +6,15 @@ describe('function to format CUM', () => {
     const consecutivo = '24'
     const atc = 'A02BC01'
 
-    const result = formatCUM({ expediente, consecutivo, atc })
+    const result = formatCUM({
+      atc,
+      consecutivo,
+      expediente,
+    })
 
-    expect(result).toHaveLength(20)
+    const CUM_LENGTH = 20
+
+    expect(result).toHaveLength(CUM_LENGTH)
   })
 
   it('should have the correct format', () => {
@@ -16,8 +22,8 @@ describe('function to format CUM', () => {
     const consecutivo = '1'
     const atc = 'A02BC01'
 
-    const result = formatCUM({ expediente, consecutivo, atc })
+    const result = formatCUM({ atc, consecutivo, expediente })
 
-    expect(result).toMatch(/^\d{8}-\d{2}-\w{8}$/)
+    expect(result).toMatch(/^\d{8}-\d{2}-\w{8}$/u)
   })
 })
