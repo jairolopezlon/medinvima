@@ -50,6 +50,7 @@
         "no-ternary":"off",
         "max-lines-per-function": ["error", 80],
         "react/jsx-no-bind": "off",
+        "react/require-default-props": "off",
         "function-call-argument-newline": "off",
         "react/jsx-filename-extension": [
             1,
