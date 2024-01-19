@@ -1,8 +1,8 @@
 import { Button, Text } from '@/components/atoms'
-import { type ICumItem } from '@/types'
+import { type IExpedienteItem } from '@/types'
 import { useState } from 'react'
 
-export default function CumItemCard({ cumData }: { readonly cumData: ICumItem }): JSX.Element {
+export default function CumItemCard({ cumData }: { readonly cumData: IExpedienteItem }): JSX.Element {
   const [showConsecutivos, setShowConsecutivos] = useState(false)
 
   const widthScreen = window.innerWidth
