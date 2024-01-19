@@ -14,7 +14,9 @@ export default function HomeApp(): React.JSX.Element {
             <h4 className='text-gray-600'>cargando...</h4>
           </div>
         ) : (
-          cumsInvima?.map((item) => <CumItemCard cumData={item} key={`${item.expedientecum}-${item.consecutivocum}`} />)
+          cumsInvima?.map((item) => (
+            <CumItemCard cumData={item} key={`${item.expediente}-${item.principioactivo.replaceAll(' ', '-')}`} />
+          ))
         )}
       </div>
     </div>
