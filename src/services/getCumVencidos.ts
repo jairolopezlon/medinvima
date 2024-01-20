@@ -1,8 +1,8 @@
 import { type IExpedienteItem } from '@/types'
 
-const URL_API = 'https://www.datos.gov.co/resource/i8k4-nx2s.json?$limit=10'
+const URL_API = 'https://www.datos.gov.co/resource/yg66-kbaz.json?$limit=10'
 
-export const getCumVigentes = async (): Promise<IExpedienteItem[]> => {
+export const getCumVencidos = async (): Promise<IExpedienteItem[]> => {
   try {
     const response = await fetch(URL_API)
     const data = await response.json()
