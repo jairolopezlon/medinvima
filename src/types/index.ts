@@ -45,3 +45,7 @@ export interface IExpedienteItem {
   unidadreferencia: string
   viaadministracion: string
 }
+
+export type CumFindBy = 'producto' | 'expediente' | 'principioactivo' | 'atc'
+
+export type CumNameBase = 'vigentes' | 'vencidos' | 'renovacion' | 'otros'
