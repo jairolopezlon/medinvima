@@ -9,6 +9,8 @@
     "husky": "husky install",
     "lint": "eslint .",
     "start": "next start",
+    "deploy.test": "next build && firebase hosting:channel:deploy test-deploy",
+    "deploy.test.local": "next build && firebase serve",
     "test:w": "jest --watchAll",
     "test": "jest"
   },

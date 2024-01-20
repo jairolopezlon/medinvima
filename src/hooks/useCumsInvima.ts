@@ -1,19 +1,19 @@
 import { useEffect, useState } from 'react'
-import { type ICumItem } from '@/types'
-import { getCumVigentes } from '@/services/getCumVigentes'
+import { type IExpedienteItem } from '@/types'
+import { getCums } from '@/services'
 
 interface returnType {
-  cumsInvima: ICumItem[] | undefined
+  cumsInvima: IExpedienteItem[] | undefined
   isLoading: boolean
 }
 
 export const useCumsInvima = (): returnType => {
-  const [cumsInvima, setCumsInvima] = useState<ICumItem[]>()
+  const [cumsInvima, setCumsInvima] = useState<IExpedienteItem[]>()
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     setIsLoading(true)
-    getCumVigentes()
+    getCums()
       .then((data) => {
         setCumsInvima(data)
       })

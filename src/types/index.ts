@@ -27,3 +27,25 @@ export interface ICumItem {
   unidadreferencia: string
   viaadministracion: string
 }
+
+export interface IExpedienteItem {
+  atc: string
+  cantidad: string
+  descripcionatc: string
+  estadoregistro: string
+  expediente: string
+  fechaexpedicion: string
+  fechavencimiento?: string
+  formafarmaceutica: string
+  principioactivo: string
+  producto: string
+  registrosanitario: string
+  titular: string
+  unidadmedida: string
+  unidadreferencia: string
+  viaadministracion: string
+}
+
+export type CumFindBy = 'producto' | 'expediente' | 'principioactivo' | 'atc'
+
+export type CumNameBase = 'vigentes' | 'vencidos' | 'renovacion' | 'otros'
