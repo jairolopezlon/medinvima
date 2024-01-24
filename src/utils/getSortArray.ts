@@ -1,7 +1,7 @@
 import { UNDEFINED, ZERO } from '@/constants'
 type OrderDirection = 'ASC' | 'DESC'
 
-export const sortArray = <T>({
+export const getSortArray = <T>({
   arr,
   property,
   direction,
