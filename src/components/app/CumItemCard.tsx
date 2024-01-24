@@ -30,7 +30,7 @@ export default function CumItemCard({ cumData }: { readonly cumData: IExpediente
       <div className='flex justify-between items-center'>
         <div className={`flex ${widthScreen < mobileMaxWidth ? 'gap-1 flex-col' : 'gap-2'}`}>
           <div className='flex gap-1'>
-            <Text classname='text-xs '>CUM:</Text>
+            <Text classname='text-xs '>Expediente:</Text>
             <Text classname='text-xs font-semibold'>{expediente}</Text>
           </div>
           <div className='flex gap-1'>

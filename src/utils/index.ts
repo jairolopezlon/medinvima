@@ -1,2 +1,2 @@
 export * from './formatCUM'
-export * from './sortArray'
+export * from './getSortArray'
