@@ -1,6 +1,7 @@
-import { type ChangeEvent, type FormEvent } from 'react'
+import { Button, Text } from '../atoms'
+import { type ChangeEvent, type FormEvent, useState } from 'react'
 import { type CumFindBy, type CumNameBase } from '@/types'
-import { Button } from '../atoms'
+import { Checkbox } from '../molecules'
 
 interface Props {
   readonly handleSearchOn: (valueSearchOn: Record<CumNameBase, boolean>) => void
@@ -11,12 +12,18 @@ interface Props {
 }
 
 export default function SearchCum({
-  searchCums,
   handleSearchOn,
   isFetching,
-  setValueToSearch,
+  searchCums,
   setFindBy,
-}: Props): React.JSX.Element {
+  setValueToSearch,
+}: Props): JSX.Element {
+  const [isFiltersOpen, setIsFiltersOpen] = useState(false)
+
+  const handleOpenFilters = (): void => {
+    setIsFiltersOpen((currentValue) => !currentValue)
+  }
+
   // eslint-disable-next-line no-empty-function
   const handleSearch = (): void => {}
 
@@ -30,7 +37,7 @@ export default function SearchCum({
 
   const handleSearchSubmit = (event: FormEvent): void => {
     event.preventDefault()
-
+    isFiltersOpen && setIsFiltersOpen((currentValue) => !currentValue)
     void searchCums()
   }
 
@@ -70,6 +77,22 @@ export default function SearchCum({
           >
             Buscar
           </Button>
+        </div>
+        <div className='flex flex-col gap-2'>
+          <Button classname='self-start' handleClick={handleOpenFilters} level='tertiary' size='xs' type='button'>
+            {`Filtros ${isFiltersOpen ? '🔼' : '🔽'}`}
+          </Button>
+          {isFiltersOpen ? (
+            <div className='flex flex-col gap-1'>
+              <Text classname='text-xs  font-semibold'>Incluir los estados:</Text>
+              <div>
+                <Checkbox fieldName='findOn' label='Vigentes' state={false} value='vigentes' />
+                <Checkbox fieldName='findOn' label='Tramite de renovacion' state={false} value='renovacion' />
+                <Checkbox fieldName='findOn' label='Vencidos' state={false} value='vencidos' />
+                <Checkbox fieldName='findOn' label='Otros estados' state={false} value='otros' />
+              </div>
+            </div>
+          ) : null}
         </div>
       </form>
     </div>
