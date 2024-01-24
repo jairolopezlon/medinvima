@@ -1,6 +1,5 @@
 'use client'
-import CumItemCard from '@/components/app/CumItemCard'
-import { SearchCum } from '@components/app'
+import { CumItemCard, SearchCum } from '@/components/app'
 import { useSearchCums } from '@/hooks'
 
 export default function HomeApp(): React.JSX.Element {
