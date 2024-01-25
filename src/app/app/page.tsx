@@ -3,13 +3,15 @@ import { CumItemCard, SearchCum } from '@/components/app'
 import { useSearchCums } from '@/hooks'
 
 export default function HomeApp(): React.JSX.Element {
-  const { handleSearchOn, hasItems, isFetching, searchCums, setFindBy, setValueToSearch, itemsFound } = useSearchCums()
+  const { handleSearchOn, hasItems, isFetching, searchCums, searchOn, setFindBy, setValueToSearch, itemsFound } =
+    useSearchCums()
   return (
     <div className='flex flex-col gap-2'>
       <SearchCum
         handleSearchOn={handleSearchOn}
         isFetching={isFetching}
         searchCums={searchCums}
+        searchOn={searchOn}
         setFindBy={setFindBy}
         setValueToSearch={setValueToSearch}
       />

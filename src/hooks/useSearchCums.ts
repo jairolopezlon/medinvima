@@ -12,7 +12,7 @@ interface PropsReturn {
   setOffset: React.Dispatch<React.SetStateAction<number>>
   setValueToSearch: React.Dispatch<React.SetStateAction<string>>
   setFindBy: React.Dispatch<React.SetStateAction<CumFindBy>>
-  handleSearchOn: (valueSearchOn: Record<CumNameBase, boolean>) => void
+  handleSearchOn: ({ fieldValue, checkedValue }: { fieldValue: CumNameBase; checkedValue: boolean }) => void
   searchCums: () => Promise<void>
 }
 
@@ -34,8 +34,8 @@ export const useSearchCums = (): PropsReturn => {
     vigentes: true,
   })
 
-  const handleSearchOn = (valueSearchOn: Record<CumNameBase, boolean>): void => {
-    setSearchOn((currentValue) => ({ ...currentValue, ...valueSearchOn }))
+  const handleSearchOn = ({ fieldValue, checkedValue }: { fieldValue: CumNameBase; checkedValue: boolean }): void => {
+    setSearchOn((currentValue) => ({ ...currentValue, ...{ [fieldValue]: checkedValue } }))
   }
 
   const getWhereFormat = (): string => {
