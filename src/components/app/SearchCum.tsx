@@ -4,8 +4,9 @@ import { type CumFindBy, type CumNameBase } from '@/types'
 import { Checkbox } from '../molecules'
 
 interface Props {
-  readonly handleSearchOn: (valueSearchOn: Record<CumNameBase, boolean>) => void
+  readonly handleSearchOn: ({ fieldValue, checkedValue }: { fieldValue: CumNameBase; checkedValue: boolean }) => void
   readonly searchCums: () => Promise<void>
+  readonly searchOn: Record<CumNameBase, boolean>
   readonly isFetching: boolean
   readonly setFindBy: React.Dispatch<React.SetStateAction<CumFindBy>>
   readonly setValueToSearch: React.Dispatch<React.SetStateAction<string>>
@@ -15,6 +16,7 @@ export default function SearchCum({
   handleSearchOn,
   isFetching,
   searchCums,
+  searchOn,
   setFindBy,
   setValueToSearch,
 }: Props): JSX.Element {
@@ -86,10 +88,34 @@ export default function SearchCum({
             <div className='flex flex-col gap-1'>
               <Text classname='text-xs  font-semibold'>Incluir los estados:</Text>
               <div>
-                <Checkbox fieldName='findOn' label='Vigentes' state={false} value='vigentes' />
-                <Checkbox fieldName='findOn' label='Tramite de renovacion' state={false} value='renovacion' />
-                <Checkbox fieldName='findOn' label='Vencidos' state={false} value='vencidos' />
-                <Checkbox fieldName='findOn' label='Otros estados' state={false} value='otros' />
+                <Checkbox
+                  fieldName='findOn'
+                  handleChange={handleSearchOn}
+                  label='Vigentes'
+                  state={searchOn.vigentes}
+                  value='vigentes'
+                />
+                <Checkbox
+                  fieldName='findOn'
+                  handleChange={handleSearchOn}
+                  label='Tramite de renovacion'
+                  state={searchOn.renovacion}
+                  value='renovacion'
+                />
+                <Checkbox
+                  fieldName='findOn'
+                  handleChange={handleSearchOn}
+                  label='Vencidos'
+                  state={searchOn.vencidos}
+                  value='vencidos'
+                />
+                <Checkbox
+                  fieldName='findOn'
+                  handleChange={handleSearchOn}
+                  label='Otros estados'
+                  state={searchOn.otros}
+                  value='otros'
+                />
               </div>
             </div>
           ) : null}
