@@ -5,8 +5,8 @@
         "node": true
     },
     "settings": {
-        "react":{
-            "version":"detect"
+        "react": {
+            "version": "detect"
         }
     },
     "extends": [
@@ -18,7 +18,8 @@
         "plugin:@typescript-eslint/recommended",
         "plugin:react/jsx-runtime",
         "standard-with-typescript",
-        "eslint-config-prettier"
+        "eslint-config-prettier",
+        "plugin:storybook/recommended"
     ],
     "overrides": [
         {
@@ -26,50 +27,73 @@
                 "node": true
             },
             "files": [
-                ".eslintrc.{js,cjs}", "./**/*.js"
+                ".eslintrc.{js,cjs}",
+                "./**/*.js"
             ],
             "parserOptions": {
                 "sourceType": "script"
             },
-            "extends": ["plugin:@typescript-eslint/disable-type-checked"]            
+            "extends": [
+                "plugin:@typescript-eslint/disable-type-checked"
+            ]
         }
     ],
     "parserOptions": {
         "parser": "@typescript-eslint/parser",
         "ecmaVersion": "latest",
         "sourceType": "module",
-        "project": "./tsconfig.json" 
+        "project": "./tsconfig.json"
     },
     "plugins": [
         "react"
     ],
     "rules": {
-        "react/jsx-max-depth": ["error", { "max": 5 }],
+        "react/jsx-max-depth": [
+            "error",
+            {
+                "max": 5
+            }
+        ],
         "react/jsx-no-literals": "off",
         "allowArrowFunctions": "off",
-        "no-ternary":"off",
-        "max-lines-per-function": ["error", 120],
+        "no-ternary": "off",
+        "max-lines-per-function": [
+            "error",
+            120
+        ],
         "react/jsx-no-bind": "off",
-        "max-statements": ["error", 10, {"ignoreTopLevelFunctions": true}],
+        "max-statements": [
+            "error",
+            10,
+            {
+                "ignoreTopLevelFunctions": true
+            }
+        ],
         "react/require-default-props": "off",
-        "no-underscore-dangle": ["error", {
-             "allowAfterThis": true,
-             "allowAfterSuper": true
-        }],
-        "no-magic-numbers":["error", {
-            "ignoreClassFieldInitialValues": true
-        }],
+        "no-underscore-dangle": [
+            "error",
+            {
+                "allowAfterThis": true,
+                "allowAfterSuper": true
+            }
+        ],
+        "no-magic-numbers": [
+            "error",
+            {
+                "ignoreClassFieldInitialValues": true
+            }
+        ],
         "function-call-argument-newline": "off",
         "react/jsx-filename-extension": [
             1,
             {
-              "extensions": [
-                ".js",
-                ".jsx",
-                ".ts",
-                ".tsx"
-              ]
+                "extensions": [
+                    ".js",
+                    ".jsx",
+                    ".ts",
+                    ".tsx"
+                ]
             }
-          ]
+        ]
     }
 }
