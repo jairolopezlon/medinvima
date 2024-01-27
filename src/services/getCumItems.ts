@@ -9,8 +9,8 @@ export const getCumItems = async ({
 }): Promise<IExpedienteItem[]> => {
   const URL_BASE = 'https://www.datos.gov.co/resource'
   const URL_TARTGETS = {
-    otros: ``,
-    renovacion: ``,
+    otros: `${URL_BASE}/mjdr-iq5z.json`,
+    renovacion: `${URL_BASE}/ipw6-wuz4.json`,
     vencidos: `${URL_BASE}/yg66-kbaz.json`,
     vigentes: `${URL_BASE}/i8k4-nx2s.json`,
   }
