@@ -1,22 +1,31 @@
-import { type ChangeEvent, type FormEvent } from 'react'
+import { Button, Text } from '../atoms'
+import { type ChangeEvent, type FormEvent, useState } from 'react'
 import { type CumFindBy, type CumNameBase } from '@/types'
-import { Button } from '../atoms'
+import { Checkbox } from '../molecules'
 
 interface Props {
-  readonly handleSearchOn: (valueSearchOn: Record<CumNameBase, boolean>) => void
+  readonly handleSearchOn: ({ fieldValue, checkedValue }: { fieldValue: CumNameBase; checkedValue: boolean }) => void
   readonly searchCums: () => Promise<void>
+  readonly searchOn: Record<CumNameBase, boolean>
   readonly isFetching: boolean
   readonly setFindBy: React.Dispatch<React.SetStateAction<CumFindBy>>
   readonly setValueToSearch: React.Dispatch<React.SetStateAction<string>>
 }
 
 export default function SearchCum({
-  searchCums,
   handleSearchOn,
   isFetching,
-  setValueToSearch,
+  searchCums,
+  searchOn,
   setFindBy,
-}: Props): React.JSX.Element {
+  setValueToSearch,
+}: Props): JSX.Element {
+  const [isFiltersOpen, setIsFiltersOpen] = useState(false)
+
+  const handleOpenFilters = (): void => {
+    setIsFiltersOpen((currentValue) => !currentValue)
+  }
+
   // eslint-disable-next-line no-empty-function
   const handleSearch = (): void => {}
 
@@ -30,7 +39,7 @@ export default function SearchCum({
 
   const handleSearchSubmit = (event: FormEvent): void => {
     event.preventDefault()
-
+    isFiltersOpen && setIsFiltersOpen((currentValue) => !currentValue)
     void searchCums()
   }
 
@@ -70,6 +79,46 @@ export default function SearchCum({
           >
             Buscar
           </Button>
+        </div>
+        <div className='flex flex-col gap-2'>
+          <Button classname='self-start' handleClick={handleOpenFilters} level='tertiary' size='xs' type='button'>
+            {`Filtros ${isFiltersOpen ? '🔼' : '🔽'}`}
+          </Button>
+          {isFiltersOpen ? (
+            <div className='flex flex-col gap-1'>
+              <Text classname='text-xs  font-semibold'>Incluir los estados:</Text>
+              <div>
+                <Checkbox
+                  fieldName='findOn'
+                  handleChange={handleSearchOn}
+                  label='Vigentes'
+                  state={searchOn.vigentes}
+                  value='vigentes'
+                />
+                <Checkbox
+                  fieldName='findOn'
+                  handleChange={handleSearchOn}
+                  label='Tramite de renovacion'
+                  state={searchOn.renovacion}
+                  value='renovacion'
+                />
+                <Checkbox
+                  fieldName='findOn'
+                  handleChange={handleSearchOn}
+                  label='Vencidos'
+                  state={searchOn.vencidos}
+                  value='vencidos'
+                />
+                <Checkbox
+                  fieldName='findOn'
+                  handleChange={handleSearchOn}
+                  label='Otros estados'
+                  state={searchOn.otros}
+                  value='otros'
+                />
+              </div>
+            </div>
+          ) : null}
         </div>
       </form>
     </div>

@@ -9,6 +9,7 @@ export default function CumItemCard({ cumData }: { readonly cumData: IExpediente
   const mobileMaxWidth = 500
 
   const {
+    atc,
     cantidad,
     descripcionatc,
     estadoregistro,
@@ -30,12 +31,16 @@ export default function CumItemCard({ cumData }: { readonly cumData: IExpediente
       <div className='flex justify-between items-center'>
         <div className={`flex ${widthScreen < mobileMaxWidth ? 'gap-1 flex-col' : 'gap-2'}`}>
           <div className='flex gap-1'>
-            <Text classname='text-xs '>CUM:</Text>
+            <Text classname='text-xs '>ATC:</Text>
+            <Text classname='text-xs font-semibold'>{atc}</Text>
+          </div>
+          <div className='flex gap-1'>
+            <Text classname='text-xs '>Expediente:</Text>
             <Text classname='text-xs font-semibold'>{expediente}</Text>
           </div>
           <div className='flex gap-1'>
             <Text classname='text-xs '>RS:</Text>
-            <Text classname='text-xs font-semibold'>{registrosanitario}</Text>
+            <Text classname='text-xs font-semibold'>{registrosanitario.replace('INVIMA', '').trim()}</Text>
           </div>
         </div>
         <div className='flex'>

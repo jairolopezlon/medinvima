@@ -1,26 +1,28 @@
 import { type CumFindBy, type CumNameBase, type IExpedienteItem } from '@/types'
-import { EMPTY_ARRAY } from '@/constants'
+import { EMPTY_ARRAY, FIND_BY } from '@/constants'
 import { getCumItems } from '@/services'
-import { sortArray } from '@/utils'
+import { getSortArray } from '@/utils'
 import { useState } from 'react'
 
 interface PropsReturn {
   searchOn: Record<CumNameBase, boolean>
   isFetching: boolean
+  isFirstFetching: boolean
   hasItems: boolean
   itemsFound: IExpedienteItem[]
   setOffset: React.Dispatch<React.SetStateAction<number>>
   setValueToSearch: React.Dispatch<React.SetStateAction<string>>
   setFindBy: React.Dispatch<React.SetStateAction<CumFindBy>>
-  handleSearchOn: (valueSearchOn: Record<CumNameBase, boolean>) => void
+  handleSearchOn: ({ fieldValue, checkedValue }: { fieldValue: CumNameBase; checkedValue: boolean }) => void
   searchCums: () => Promise<void>
 }
 
 export const useSearchCums = (): PropsReturn => {
   const DEFAULT_LIMIT = 10
   const DEFAULT_OFFSET = 0
-  const DEFAULT_FIND_BY = 'principioactivo'
+  const DEFAULT_FIND_BY = FIND_BY.principioActivo
 
+  const [isFirstFetching, setIsFirstFetching] = useState<boolean>(true)
   const [isFetching, setIsFetching] = useState<boolean>(false)
   const [hasItems, setHasItems] = useState<boolean>(false)
   const [offset, setOffset] = useState<number>(DEFAULT_OFFSET)
@@ -34,15 +36,22 @@ export const useSearchCums = (): PropsReturn => {
     vigentes: true,
   })
 
-  const handleSearchOn = (valueSearchOn: Record<CumNameBase, boolean>): void => {
-    setSearchOn((currentValue) => ({ ...currentValue, ...valueSearchOn }))
+  const handleSearchOn = ({ fieldValue, checkedValue }: { fieldValue: CumNameBase; checkedValue: boolean }): void => {
+    setSearchOn((currentValue) => ({ ...currentValue, ...{ [fieldValue]: checkedValue } }))
+  }
+
+  const getWhereFormat = (): string => {
+    if (findBy === FIND_BY.expediente) {
+      return `${findBy}=${valueToSearch}`
+    }
+    return `${findBy} like '%${valueToSearch.toUpperCase().trim()}%'`
   }
 
   const getSearchParams = (): string => {
     const searchParams = new URLSearchParams()
     searchParams.set('$limit', DEFAULT_LIMIT.toString())
     searchParams.set('$offset', offset.toString())
-    searchParams.set(`$where`, `${findBy} like '%${valueToSearch.toUpperCase()}%'`)
+    searchParams.set(`$where`, getWhereFormat())
     return searchParams.toString()
   }
 
@@ -61,6 +70,7 @@ export const useSearchCums = (): PropsReturn => {
   }
 
   const searchCums = async (): Promise<void> => {
+    setIsFirstFetching(false)
     setIsFetching(true)
 
     const requests = getRequests()
@@ -75,10 +85,10 @@ export const useSearchCums = (): PropsReturn => {
       return acc
     }, [])
 
-    const expedienteItemsSorted = sortArray<IExpedienteItem>({
+    const expedienteItemsSorted = getSortArray<IExpedienteItem>({
       arr: expedienteItems,
       direction: 'ASC',
-      property: 'producto',
+      property: FIND_BY.productoName,
     })
 
     setItemsFound(() => expedienteItemsSorted)
@@ -90,6 +100,7 @@ export const useSearchCums = (): PropsReturn => {
     handleSearchOn,
     hasItems,
     isFetching,
+    isFirstFetching,
     itemsFound,
     searchCums,
     searchOn,
