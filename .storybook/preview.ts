@@ -1,9 +1,7 @@
-import type { Preview } from '@storybook/react'
-
-import '../src/app/globals.css'
-
+import type { Preview, ReactRenderer } from '@storybook/react'
 import { withThemeByClassName } from '@storybook/addon-themes'
 import { themes } from '@storybook/theming'
+import '../src/app/globals.css'
 
 const preview: Preview = {
   parameters: {
@@ -19,12 +17,12 @@ const preview: Preview = {
     },
   },
   decorators: [
-    withThemeByClassName({
+    withThemeByClassName<ReactRenderer>({
       themes: {
         light: '',
         dark: 'dark',
       },
-      defaultTheme: 'dark',
+      defaultTheme: 'light',
     }),
   ],
 }

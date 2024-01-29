@@ -7,6 +7,7 @@ import { useState } from 'react'
 interface PropsReturn {
   searchOn: Record<CumNameBase, boolean>
   isFetching: boolean
+  isFirstFetching: boolean
   hasItems: boolean
   itemsFound: IExpedienteItem[]
   setOffset: React.Dispatch<React.SetStateAction<number>>
@@ -21,6 +22,7 @@ export const useSearchCums = (): PropsReturn => {
   const DEFAULT_OFFSET = 0
   const DEFAULT_FIND_BY = FIND_BY.principioActivo
 
+  const [isFirstFetching, setIsFirstFetching] = useState<boolean>(true)
   const [isFetching, setIsFetching] = useState<boolean>(false)
   const [hasItems, setHasItems] = useState<boolean>(false)
   const [offset, setOffset] = useState<number>(DEFAULT_OFFSET)
@@ -68,6 +70,7 @@ export const useSearchCums = (): PropsReturn => {
   }
 
   const searchCums = async (): Promise<void> => {
+    setIsFirstFetching(false)
     setIsFetching(true)
 
     const requests = getRequests()
@@ -97,6 +100,7 @@ export const useSearchCums = (): PropsReturn => {
     handleSearchOn,
     hasItems,
     isFetching,
+    isFirstFetching,
     itemsFound,
     searchCums,
     searchOn,
