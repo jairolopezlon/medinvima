@@ -1,7 +1,7 @@
 import { type CSSProperties } from 'react'
 
 interface TextProps {
-  readonly children: string
+  readonly children?: React.ReactNode | string
   readonly classname?: string
   readonly unselectable?: boolean
 }
