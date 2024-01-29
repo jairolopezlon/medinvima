@@ -1,13 +1,35 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { Skeleton } from './Skeleton'
+import { Skeleton } from '..'
 
 const meta: Meta<typeof Skeleton> = {
   argTypes: {
-    classname: {
+    children: {
       control: { type: 'text' },
-      defaultValue: 'h-[50px]',
+      description: 'The content of the skeleton',
+    },
+    customClass: {
+      control: { type: 'text' },
       description: 'The classname for the skeleton',
     },
+    height: {
+      control: { type: 'number' },
+      description: 'The height of the skeleton',
+    },
+    radius: {
+      control: { type: 'number' },
+      description: 'The radius of the skeleton',
+    },
+    rounded: {
+      control: { type: 'boolean' },
+      description: 'Whether the skeleton is rounded',
+    },
+    width: {
+      control: { type: 'number' },
+      description: 'The width of the skeleton',
+    },
+  },
+  args: {
+    rounded: false,
   },
   component: Skeleton,
   tags: ['autodocs'],
@@ -17,13 +39,17 @@ const meta: Meta<typeof Skeleton> = {
 export default meta
 type Story = StoryObj<typeof Skeleton>
 
-export const SkeletonSample1: Story = {
+export const SkeletonSimpleCard: Story = {
   args: {
-    classname: 'h-[300px]',
+    height: 200,
+    radius: 8,
+    width: 300,
   },
 }
-export const SkeletonSample2: Story = {
+export const SkeletonSimpleCircle: Story = {
   args: {
-    classname: 'h-[100px]',
+    height: 50,
+    rounded: true,
+    width: 50,
   },
 }
