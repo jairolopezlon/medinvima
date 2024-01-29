@@ -8,9 +8,9 @@ interface Props {
 
 export default function SkeletonCardSearchingItems({ customClass }: Props): JSX.Element {
   return (
-    <Skeleton customClass='!flex-col sm:!flex-row  gap-1 p-4 ' height={150} radius={4}>
+    <Skeleton customClass='!flex-col sm:!flex-row gap-1 p-4' height={150} radius={4}>
       <LoaderSpinner color='#999' size={24} />
-      <Text classname='font-semibold dark:text-gray-50 text-center' unselectable>
+      <Text classname='font-semibold dark:text-gray-50 text-center text-sm' unselectable>
         Buscando registros sanitarios...
       </Text>
     </Skeleton>
