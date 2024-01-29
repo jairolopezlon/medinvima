@@ -1,10 +1,21 @@
 'use client'
+import { CardInitialSearchItems, CardItemsNotFound, SkeletonCardSearchingItems } from '@components/molecules'
 import { CumItemCard, SearchCum } from '@/components/app'
 import { useSearchCums } from '@/hooks'
 
 export default function HomeApp(): React.JSX.Element {
-  const { handleSearchOn, hasItems, isFetching, searchCums, searchOn, setFindBy, setValueToSearch, itemsFound } =
-    useSearchCums()
+  const {
+    handleSearchOn,
+    hasItems,
+    isFetching,
+    isFirstFetching,
+    searchCums,
+    searchOn,
+    setFindBy,
+    setValueToSearch,
+    itemsFound,
+  } = useSearchCums()
+
   return (
     <div className='flex flex-col gap-2'>
       <SearchCum
@@ -15,12 +26,9 @@ export default function HomeApp(): React.JSX.Element {
         setFindBy={setFindBy}
         setValueToSearch={setValueToSearch}
       />
-      <div className='bg-white p-4 flex flex-col gap-1'>
-        {isFetching ? (
-          <div>
-            <h4 className='text-gray-600'>Cargando...</h4>
-          </div>
-        ) : null}
+      <div className='bg-white p-4 flex flex-col gap-1 rounded-md'>
+        {isFirstFetching && !isFetching ? <CardInitialSearchItems /> : null}
+        {isFetching ? <SkeletonCardSearchingItems /> : null}
 
         {!isFetching && hasItems
           ? itemsFound?.map((item) => (
@@ -28,11 +36,7 @@ export default function HomeApp(): React.JSX.Element {
             ))
           : null}
 
-        {!isFetching && !hasItems ? (
-          <div>
-            <h4 className='text-gray-600'>Sin resultados</h4>
-          </div>
-        ) : null}
+        {!isFetching && !hasItems && !isFirstFetching ? <CardItemsNotFound /> : null}
       </div>
     </div>
   )
