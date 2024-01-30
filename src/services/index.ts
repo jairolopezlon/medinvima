@@ -1,3 +1,4 @@
+export * from './getConsecutivesItems'
 export * from './getCum'
 export * from './getCumItems'
 export * from './getCumVencidos'
