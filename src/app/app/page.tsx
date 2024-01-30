@@ -15,6 +15,8 @@ export default function HomeApp(): React.JSX.Element {
     searchOn,
     setFindBy,
     setValueToSearch,
+    consecutivesData,
+    isFetchingConsecutives,
   } = useSearchCums()
 
   return (
@@ -34,7 +36,9 @@ export default function HomeApp(): React.JSX.Element {
         {!isFetching && hasItems
           ? itemsFound?.map((item) => (
               <CumItemCard
+                consecutivesData={consecutivesData[item.expediente]}
                 cumData={item}
+                isFetchingConsecutives={isFetchingConsecutives}
                 key={`${item.expediente}-${item.principioactivo.replaceAll(' ', '-')}`}
                 searchConsecutives={searchConsecutives}
               />

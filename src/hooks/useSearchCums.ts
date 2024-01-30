@@ -1,9 +1,17 @@
 import { type CumFindBy, type CumNameBase, type IConsecutiveItem, type IExpedienteItem } from '@/types'
-import { EMPTY_ARRAY, FIND_BY } from '@/constants'
+import { EMPTY_ARRAY, FIND_BY, UNDEFINED } from '@/constants'
 import { getConsecutivesItems, getCumItems } from '@/services'
 import { getSortArray } from '@/utils'
 import { useState } from 'react'
 
+export interface ISearchConsecutivesProps {
+  expediente: string
+  expedienteStatus: CumNameBase
+}
+interface IHandleSearchOnProps {
+  fieldValue: CumNameBase
+  checkedValue: boolean
+}
 interface PropsReturn {
   searchOn: Record<CumNameBase, boolean>
   isFetching: boolean
@@ -11,18 +19,12 @@ interface PropsReturn {
   hasItems: boolean
   itemsFound: IExpedienteItem[]
   isFetchingConsecutives: boolean
-  consecutivesData: IConsecutiveItem[]
-  searchConsecutives: ({
-    expediente,
-    expedienteStatus,
-  }: {
-    expediente: string
-    expedienteStatus: CumNameBase
-  }) => Promise<void>
+  consecutivesData: Record<string, IConsecutiveItem[]>
+  searchConsecutives: ({ expediente, expedienteStatus }: ISearchConsecutivesProps) => Promise<void>
   setOffset: React.Dispatch<React.SetStateAction<number>>
   setValueToSearch: React.Dispatch<React.SetStateAction<string>>
   setFindBy: React.Dispatch<React.SetStateAction<CumFindBy>>
-  handleSearchOn: ({ fieldValue, checkedValue }: { fieldValue: CumNameBase; checkedValue: boolean }) => void
+  handleSearchOn: ({ fieldValue, checkedValue }: IHandleSearchOnProps) => void
   searchCums: () => Promise<void>
 }
 
@@ -31,7 +33,7 @@ export const useSearchCums = (): PropsReturn => {
   const DEFAULT_OFFSET = 0
   const DEFAULT_FIND_BY = FIND_BY.principioActivo
 
-  const [consecutivesData, setConsecutivesData] = useState<IConsecutiveItem[]>([])
+  const [consecutivesData, setConsecutivesData] = useState<Record<string, IConsecutiveItem[]>>({})
   const [isFetchingConsecutives, setIsFetchingConsecutives] = useState<boolean>(false)
   const [isFirstFetching, setIsFirstFetching] = useState<boolean>(true)
   const [isFetching, setIsFetching] = useState<boolean>(false)
@@ -47,7 +49,7 @@ export const useSearchCums = (): PropsReturn => {
     vigentes: true,
   })
 
-  const handleSearchOn = ({ fieldValue, checkedValue }: { fieldValue: CumNameBase; checkedValue: boolean }): void => {
+  const handleSearchOn = ({ fieldValue, checkedValue }: IHandleSearchOnProps): void => {
     setSearchOn((currentValue) => ({ ...currentValue, ...{ [fieldValue]: checkedValue } }))
   }
 
@@ -80,25 +82,21 @@ export const useSearchCums = (): PropsReturn => {
     return requests
   }
 
-  const searchConsecutives = async ({
-    expediente,
-    expedienteStatus,
-  }: {
-    expediente: string
-    expedienteStatus: CumNameBase
-  }): Promise<void> => {
-    setIsFetchingConsecutives(true)
-    setConsecutivesData([])
+  const searchConsecutives = async ({ expediente, expedienteStatus }: ISearchConsecutivesProps): Promise<void> => {
+    if (consecutivesData[expediente] === UNDEFINED) {
+      setIsFetchingConsecutives(true)
 
-    const searchParams = new URLSearchParams()
-    searchParams.set('$where', `expediente=${expediente}`)
+      const searchParams = new URLSearchParams()
+      searchParams.set('$where', `expediente=${expediente}`)
 
-    const requestResult = await getConsecutivesItems({
-      searchParams: searchParams.toString(),
-      targetToSearch: expedienteStatus,
-    })
+      const requestResult = await getConsecutivesItems({
+        searchParams: searchParams.toString(),
+        targetToSearch: expedienteStatus,
+      })
 
-    setConsecutivesData(requestResult)
+      setConsecutivesData((currentData) => ({ ...currentData, [expediente]: requestResult }))
+      setIsFetchingConsecutives(false)
+    }
   }
 
   const searchCums = async (): Promise<void> => {
@@ -106,7 +104,6 @@ export const useSearchCums = (): PropsReturn => {
     setIsFetching(true)
 
     const requests = getRequests()
-
     const responses = await Promise.allSettled(requests)
 
     const expedienteItems: IExpedienteItem[] = responses.reduce<IExpedienteItem[]>((acc, cur) => {
