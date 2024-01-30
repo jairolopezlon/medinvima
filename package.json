@@ -14,7 +14,8 @@
     "test:w": "jest --watchAll",
     "test": "jest",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "atomic-builder": "node atomicDesignPathBuilder.mjs"
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": "eslint"
@@ -61,6 +62,7 @@
     "eslint-plugin-storybook": "^0.6.15",
     "eslint-plugin-testing-library": "^6.0.2",
     "husky": "8.0.0",
+    "inquirer": "^9.2.13",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "lint-staged": "^15.2.0",

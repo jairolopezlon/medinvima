@@ -45,7 +45,8 @@
     "jest.config.js",
     "**/*.spec.ts",
     "**/*.test.ts",    
-    "./*.d.ts"
+    "./*.d.ts",
+    "**/*.mjs",
     ],
   "exclude": [
     "node_modules"
