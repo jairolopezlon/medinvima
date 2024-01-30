@@ -1,8 +1,19 @@
 import { Button, Text } from '@/components/atoms'
-import { type IExpedienteItem } from '@/types'
+import { type CumNameBase, type IExpedienteItem } from '@/types'
 import { useState } from 'react'
 
-export default function CumItemCard({ cumData }: { readonly cumData: IExpedienteItem }): JSX.Element {
+interface Props {
+  readonly cumData: IExpedienteItem
+  readonly searchConsecutives: ({
+    expediente,
+    expedienteStatus,
+  }: {
+    expediente: string
+    expedienteStatus: CumNameBase
+  }) => Promise<void>
+}
+
+export default function CumItemCard({ cumData, searchConsecutives }: Props): JSX.Element {
   const [showConsecutivos, setShowConsecutivos] = useState(false)
 
   const widthScreen = window.innerWidth
@@ -22,8 +33,16 @@ export default function CumItemCard({ cumData }: { readonly cumData: IExpediente
     viaadministracion,
   } = cumData
 
+  const getTargetData = (estadoRegistro: string): CumNameBase => {
+    if (estadoRegistro === 'Vigente') return 'vigentes'
+    if (estadoRegistro === 'En tramite renov') return 'renovacion'
+    if (estadoRegistro === 'Vencido') return 'vencidos'
+    return 'otros'
+  }
+
   const handleShowConsecutivos = (): void => {
     setShowConsecutivos((currentValue) => !currentValue)
+    void searchConsecutives({ expediente, expedienteStatus: getTargetData(estadoregistro) })
   }
 
   return (
