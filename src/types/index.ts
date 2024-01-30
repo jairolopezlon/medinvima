@@ -46,6 +46,18 @@ export interface IExpedienteItem {
   viaadministracion: string
 }
 
+export interface IConsecutiveItem {
+  cantidadcum: string
+  consecutivocum: string
+  descripcioncomercial: string
+  estadocum: 'Inactivo' | 'Activo'
+  expediente: string
+  fechaactivo: string
+  fechainactivo: string
+  muestramedica: 'No' | 'Si'
+  unidad: string
+}
+
 export type CumFindBy = 'producto' | 'expediente' | 'principioactivo' | 'atc'
 
 export type CumNameBase = 'vigentes' | 'vencidos' | 'renovacion' | 'otros'
