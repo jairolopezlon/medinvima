@@ -1,6 +1,6 @@
-import { type CumFindBy, type CumNameBase, type IExpedienteItem } from '@/types'
+import { type CumFindBy, type CumNameBase, type IConsecutiveItem, type IExpedienteItem } from '@/types'
 import { EMPTY_ARRAY, FIND_BY } from '@/constants'
-import { getCumItems } from '@/services'
+import { getConsecutivesItems, getCumItems } from '@/services'
 import { getSortArray } from '@/utils'
 import { useState } from 'react'
 
@@ -10,6 +10,15 @@ interface PropsReturn {
   isFirstFetching: boolean
   hasItems: boolean
   itemsFound: IExpedienteItem[]
+  isFetchingConsecutives: boolean
+  consecutivesData: IConsecutiveItem[]
+  searchConsecutives: ({
+    expediente,
+    expedienteStatus,
+  }: {
+    expediente: string
+    expedienteStatus: CumNameBase
+  }) => Promise<void>
   setOffset: React.Dispatch<React.SetStateAction<number>>
   setValueToSearch: React.Dispatch<React.SetStateAction<string>>
   setFindBy: React.Dispatch<React.SetStateAction<CumFindBy>>
@@ -22,6 +31,8 @@ export const useSearchCums = (): PropsReturn => {
   const DEFAULT_OFFSET = 0
   const DEFAULT_FIND_BY = FIND_BY.principioActivo
 
+  const [consecutivesData, setConsecutivesData] = useState<IConsecutiveItem[]>([])
+  const [isFetchingConsecutives, setIsFetchingConsecutives] = useState<boolean>(false)
   const [isFirstFetching, setIsFirstFetching] = useState<boolean>(true)
   const [isFetching, setIsFetching] = useState<boolean>(false)
   const [hasItems, setHasItems] = useState<boolean>(false)
@@ -69,6 +80,27 @@ export const useSearchCums = (): PropsReturn => {
     return requests
   }
 
+  const searchConsecutives = async ({
+    expediente,
+    expedienteStatus,
+  }: {
+    expediente: string
+    expedienteStatus: CumNameBase
+  }): Promise<void> => {
+    setIsFetchingConsecutives(true)
+    setConsecutivesData([])
+
+    const searchParams = new URLSearchParams()
+    searchParams.set('$where', `expediente=${expediente}`)
+
+    const requestResult = await getConsecutivesItems({
+      searchParams: searchParams.toString(),
+      targetToSearch: expedienteStatus,
+    })
+
+    setConsecutivesData(requestResult)
+  }
+
   const searchCums = async (): Promise<void> => {
     setIsFirstFetching(false)
     setIsFetching(true)
@@ -97,11 +129,14 @@ export const useSearchCums = (): PropsReturn => {
   }
 
   return {
+    consecutivesData,
     handleSearchOn,
     hasItems,
     isFetching,
+    isFetchingConsecutives,
     isFirstFetching,
     itemsFound,
+    searchConsecutives,
     searchCums,
     searchOn,
     setFindBy,
