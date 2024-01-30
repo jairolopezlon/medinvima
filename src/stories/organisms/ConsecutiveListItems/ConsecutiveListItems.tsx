@@ -1,4 +1,3 @@
-import { type CSSProperties } from 'react'
 import { type IConsecutiveItem } from '@/types'
 import { formatCUM } from '@/utils'
 
@@ -36,13 +35,9 @@ export default function ConsecutiveListItems({ atc, consecutiveData, customClass
               expediente,
             })
 
-            const cumCellStyles: CSSProperties = { textWrap: 'nowrap' }
-
             return (
               <tr key={cum}>
-                <td className='text-xs py-2 px-2' style={cumCellStyles}>
-                  {cum}
-                </td>
+                <td className='text-xs py-2 px-2 whitespace-nowrap'>{cum}</td>
                 <td className='text-xs py-2 px-2 w-full'>{descripcioncomercial.toLowerCase()}</td>
                 <td className='text-xs py-2 px-2'>{muestramedica.toLowerCase()}</td>
                 <td className='text-xs py-2 px-2'>{estadocum.toLowerCase()}</td>
