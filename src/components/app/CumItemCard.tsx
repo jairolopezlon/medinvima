@@ -1,19 +1,24 @@
 import { Button, Text } from '@/components/atoms'
-import { type CumNameBase, type IExpedienteItem } from '@/types'
+import { type CumNameBase, type IConsecutiveItem, type IExpedienteItem } from '@/types'
+import { ConsecutiveListItems } from '@/stories/organisms'
+import { type ISearchConsecutivesProps } from '@/hooks'
+import { LoaderSpinner } from '@/assets/svg'
+import { UNDEFINED } from '@/constants'
 import { useState } from 'react'
 
 interface Props {
+  readonly consecutivesData?: IConsecutiveItem[]
+  readonly isFetchingConsecutives: boolean
   readonly cumData: IExpedienteItem
-  readonly searchConsecutives: ({
-    expediente,
-    expedienteStatus,
-  }: {
-    expediente: string
-    expedienteStatus: CumNameBase
-  }) => Promise<void>
+  readonly searchConsecutives: ({ expediente, expedienteStatus }: ISearchConsecutivesProps) => Promise<void>
 }
 
-export default function CumItemCard({ cumData, searchConsecutives }: Props): JSX.Element {
+export default function CumItemCard({
+  consecutivesData,
+  isFetchingConsecutives,
+  cumData,
+  searchConsecutives,
+}: Props): JSX.Element {
   const [showConsecutivos, setShowConsecutivos] = useState(false)
 
   const widthScreen = window.innerWidth
@@ -46,7 +51,7 @@ export default function CumItemCard({ cumData, searchConsecutives }: Props): JSX
   }
 
   return (
-    <div className='flex flex-col gap-1  border-indigo-300 border-1 rounded-md p-2 '>
+    <div className='flex flex-col gap-2  border-indigo-300 border-1 rounded-md p-2 '>
       <div className='flex justify-between items-center'>
         <div className={`flex ${widthScreen < mobileMaxWidth ? 'gap-1 flex-col' : 'gap-2'}`}>
           <div className='flex gap-1'>
@@ -73,10 +78,23 @@ export default function CumItemCard({ cumData, searchConsecutives }: Props): JSX
         <Text classname='text-xs italic'>{`${formafarmaceutica} de ${cantidad} ${unidadmedida} ${viaadministracion}`}</Text>
       </div>
       <div className='flex items-center justify-end'>
-        <Button handleClick={handleShowConsecutivos} level='secondary' size='sm' type='button'>
+        <Button handleClick={handleShowConsecutivos} level='secondary' size='xs' type='button'>
           {showConsecutivos ? 'Ocultar Consecutivos' : 'Ver Consecutivos'}
         </Button>
       </div>
+      {showConsecutivos ? (
+        <div className=''>
+          {isFetchingConsecutives ? (
+            <div className='flex justify-center items-center gap-1 p-4'>
+              <LoaderSpinner color='#777' size={16} />
+              <Text classname='text-xs'>Buscando Consecutivos...</Text>
+            </div>
+          ) : null}
+          {consecutivesData === UNDEFINED ? null : (
+            <ConsecutiveListItems atc={atc} consecutiveData={consecutivesData} />
+          )}
+        </div>
+      ) : null}
     </div>
   )
 }
