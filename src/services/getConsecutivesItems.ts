@@ -9,9 +9,9 @@ export const getConsecutivesItems = async ({
 }): Promise<IConsecutiveItem[]> => {
   const URL_BASE = 'https://www.datos.gov.co/resource'
   const URL_TARTGETS = {
-    otros: `${URL_BASE}/otros`,
-    renovacion: `${URL_BASE}/renovacion`,
-    vencidos: `${URL_BASE}/vencidos`,
+    otros: `${URL_BASE}/bsxa-tgwq.json`,
+    renovacion: `${URL_BASE}/b97b-zrpe.json`,
+    vencidos: `${URL_BASE}/qdqf-56cv.json`,
     vigentes: `${URL_BASE}/yraz-wrxz.json`,
   }
 
