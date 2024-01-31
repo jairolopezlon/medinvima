@@ -9,11 +9,14 @@ export default function HomeApp(): React.JSX.Element {
     hasItems,
     isFetching,
     isFirstFetching,
+    itemsFound,
+    searchConsecutives,
     searchCums,
     searchOn,
     setFindBy,
     setValueToSearch,
-    itemsFound,
+    consecutivesData,
+    isFetchingConsecutives,
   } = useSearchCums()
 
   return (
@@ -32,7 +35,13 @@ export default function HomeApp(): React.JSX.Element {
 
         {!isFetching && hasItems
           ? itemsFound?.map((item) => (
-              <CumItemCard cumData={item} key={`${item.expediente}-${item.principioactivo.replaceAll(' ', '-')}`} />
+              <CumItemCard
+                consecutivesData={consecutivesData[item.expediente]}
+                cumData={item}
+                isFetchingConsecutives={isFetchingConsecutives}
+                key={`${item.expediente}-${item.principioactivo.replaceAll(' ', '-')}`}
+                searchConsecutives={searchConsecutives}
+              />
             ))
           : null}
 
