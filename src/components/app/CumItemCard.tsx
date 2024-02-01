@@ -45,14 +45,23 @@ export default function CumItemCard({
     return 'otros'
   }
 
+  const dataBaseTarget = getTargetData(estadoregistro)
+
   const handleShowConsecutivos = (): void => {
     setShowConsecutivos((currentValue) => !currentValue)
-    void searchConsecutives({ expediente, expedienteStatus: getTargetData(estadoregistro) })
+    void searchConsecutives({ expediente, expedienteStatus: dataBaseTarget })
+  }
+
+  const statusItemClass = {
+    otros: 'bg-red-400',
+    renovacion: 'bg-orange-300',
+    vencidos: 'bg-red-400',
+    vigentes: 'bg-lime-400',
   }
 
   return (
     <div className='flex flex-col gap-2  border-indigo-300 border-1 rounded-md p-2 '>
-      <div className='flex justify-between items-center'>
+      <div className='flex justify-between items-start'>
         <div className={`flex ${widthScreen < mobileMaxWidth ? 'gap-1 flex-col' : 'gap-2'}`}>
           <div className='flex gap-1'>
             <Text classname='text-xs '>ATC:</Text>
@@ -67,8 +76,10 @@ export default function CumItemCard({
             <Text classname='text-xs font-semibold'>{registrosanitario.replace('INVIMA', '').trim()}</Text>
           </div>
         </div>
-        <div className='flex'>
-          <Text classname='text-xs !text-gray-100 py-1 px-2 bg-indigo-500 rounded-xl'>{estadoregistro}</Text>
+        <div className='flex items-center gap-1'>
+          <Text classname='text-xs '>Estado:</Text>
+          <Text classname='text-xs font-semibold'>{estadoregistro}</Text>
+          <div className={`w-3 h-3 rounded-full ${statusItemClass[dataBaseTarget]}`} />
         </div>
       </div>
       <div className='flex flex-col'>
