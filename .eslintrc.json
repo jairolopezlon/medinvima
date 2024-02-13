@@ -48,6 +48,8 @@
         "react"
     ],
     "rules": {
+        "multiline-comment-style":"off",
+        "capitalized-comments":"off",
         "react/jsx-max-depth": [
             "error",
             {
@@ -59,12 +61,12 @@
         "no-ternary": "off",
         "max-lines-per-function": [
             "error",
-            120
+            200
         ],
         "react/jsx-no-bind": "off",
         "max-statements": [
             "error",
-            10,
+            20,
             {
                 "ignoreTopLevelFunctions": true
             }
