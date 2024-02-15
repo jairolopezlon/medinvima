@@ -1,12 +1,12 @@
-import { useMemo } from 'react'
+import { type ButtonHTMLAttributes, useMemo } from 'react'
 
-interface TextProps {
+interface TextProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   readonly children: string
   readonly classname?: string | undefined
   readonly size: 'xs' | 'sm' | 'md' | 'lg'
   readonly level: 'primary' | 'secondary' | 'tertiary'
   readonly disable?: boolean
-  readonly handleClick: () => void
+  readonly handleClick?: () => void
   readonly type?: 'button' | 'submit' | 'reset' | undefined
 }
 
@@ -37,6 +37,7 @@ export default function Button({
   disable,
   handleClick,
   type = 'button',
+  ...restProps
 }: TextProps): JSX.Element {
   const sizeClass = buttonSize[size] ?? ''
   const levelClass = buttonLevel[level] ?? ''
@@ -51,6 +52,7 @@ export default function Button({
       onClick={handleOnclick}
       // eslint-disable-next-line react/button-has-type
       type={type}
+      {...restProps}
     >
       {children}
     </button>
