@@ -48,6 +48,8 @@
         "react"
     ],
     "rules": {
+        "react/jsx-props-no-spreading": "off",
+        "react/forbid-component-props": "off",
         "multiline-comment-style":"off",
         "capitalized-comments":"off",
         "react/jsx-max-depth": [
