@@ -1,4 +1,5 @@
 import './globals.css'
+import Header from '@/components/app/Header'
 import { Inter } from 'next/font/google'
 import { type Metadata } from 'next'
 import SessionProvider from '@/contexts/Session'
@@ -17,9 +18,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { readonly children: React.ReactNode }): React.JSX.Element {
   return (
-    <html lang='en'>
-      <body className={inter.className}>
-        <SessionProvider>{children}</SessionProvider>
+    <html className={`bg-gradient-to-tl from-indigo-50 to-blue-50 `} lang='en'>
+      <body className={`bg-gradient-to-tl from-indigo-50 to-blue-50 ${inter.className}`}>
+        <SessionProvider>
+          <Header />
+          <main className='flex flex-col'>{children}</main>
+        </SessionProvider>
       </body>
     </html>
   )
