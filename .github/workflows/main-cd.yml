@@ -16,7 +16,7 @@ jobs:
         run: npm install
 
       - name: Build
-        run: npm run build
+        run: NEXT_PUBLIC_URL_API_AUTH_SERVICES=${{secrets.NEXT_PUBLIC_URL_API_AUTH_SERVICES}} npm run build
 
       - name: Deploy to production
         uses: FirebaseExtended/action-hosting-deploy@v0
