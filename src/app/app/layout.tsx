@@ -1,5 +1,4 @@
 import './AppGlobals.css'
-import Header from '@/components/app/Header'
 import { type Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -13,10 +12,5 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({ children }: { readonly children: React.ReactNode }): React.JSX.Element {
-  return (
-    <div className='appLayoutBackground bg-gradient-to-tl from-indigo-50 to-blue-50'>
-      <Header />
-      <div className='appLayoutContainer p-4'>{children}</div>
-    </div>
-  )
+  return <div className='appLayoutContainer p-4'>{children}</div>
 }

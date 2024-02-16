@@ -1,9 +1,14 @@
 'use client'
 import { CardInitialSearchItems, CardItemsNotFound, SkeletonCardSearchingItems } from '@components/molecules'
 import { CumItemCard, SearchCum } from '@/components/app'
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { useSearchCums } from '@/hooks'
+import { useSessionContext } from '@/contexts/Session'
 
 export default function HomeApp(): React.JSX.Element {
+  const { isAuthenticated } = useSessionContext()
+  const router = useRouter()
   const {
     handleSearchOn,
     hasItems,
@@ -18,6 +23,12 @@ export default function HomeApp(): React.JSX.Element {
     consecutivesData,
     isFetchingConsecutives,
   } = useSearchCums()
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      router.push('/app/login')
+    }
+  }, [])
 
   return (
     <div className='flex flex-col gap-2'>
@@ -44,7 +55,6 @@ export default function HomeApp(): React.JSX.Element {
               />
             ))
           : null}
-
         {!isFetching && !hasItems && !isFirstFetching ? <CardItemsNotFound /> : null}
       </div>
     </div>

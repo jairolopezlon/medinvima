@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "next build",
+    "build": "rm -rf build && next build",
     "clean": "rm -rf ./node_modules package-lock.json && npm install && npm run husky",
     "dev": "next dev",
     "husky": "husky install",

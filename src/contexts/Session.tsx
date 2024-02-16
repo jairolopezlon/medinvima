@@ -18,6 +18,7 @@ interface SessionData {
   hasError: boolean
   isAuthenticated: boolean
   isEmailVerify: boolean
+  successSignup: boolean
   isFetching: boolean
   login: (credential: UserCredential) => void
   logout: ({ email }: { email: string }) => void
@@ -29,6 +30,8 @@ interface SessionData {
   userToken: string | undefined
   validateSession: () => void
 }
+
+const TIMEOUT = 10000
 
 const SessionContext = createContext<SessionData | undefined>(UNDEFINED)
 
@@ -42,6 +45,7 @@ export default function SessionProvider({ children }: SessionProviderProps): JSX
   const [userEmail, setUserEmail] = useState<string>()
   const [userToken, setUserToken] = useState<string>()
   const [hasError, setHasError] = useState<boolean>(false)
+  const [successSignup, setSuccessSignup] = useState<boolean>(false)
   const [isFetching, setIsFetching] = useState<boolean>(false)
   const [errorMessage, setErrorMessage] = useState<string>()
   const [isEmailVerify, setIsEmailVerify] = useState<boolean>(false)
@@ -98,12 +102,16 @@ export default function SessionProvider({ children }: SessionProviderProps): JSX
     setIsFetching(true)
     void signupService({ email, name, password })
       .then((result) => {
+        setSuccessSignup(false)
         if ('error' in result) {
           setHasError(true)
           setErrorMessage(result.error)
           return
         }
-        router.push('/login')
+        setSuccessSignup(true)
+        setTimeout(() => {
+          router.push('/app/ingreso')
+        }, TIMEOUT)
       })
       .finally(() => {
         setIsFetching(false)
@@ -167,7 +175,7 @@ export default function SessionProvider({ children }: SessionProviderProps): JSX
       const userData: UserDataResponse = result
       setLocalData(userData)
       setIsAuthenticated(true)
-      // router.push('/app')
+      router.push('/app')
     })
   }
 
@@ -187,6 +195,7 @@ export default function SessionProvider({ children }: SessionProviderProps): JSX
       passwordReset,
       passwordResetStatus,
       signup,
+      successSignup,
       userEmail,
       userName,
       userToken,
@@ -203,6 +212,7 @@ export default function SessionProvider({ children }: SessionProviderProps): JSX
       passwordReset,
       passwordResetStatus,
       signup,
+      successSignup,
       userEmail,
       userName,
       userToken,
