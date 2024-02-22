@@ -2,12 +2,13 @@
 import { Button, Input, Text } from '@/components/atoms'
 import { type ElementRef, type FormEventHandler, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
+import { LoaderSpinner } from '@/assets/svg'
 import { throttle } from '@/utils/'
 import { useRouter } from 'next/navigation'
 import { useSessionContext } from '@/contexts/Session'
 
 export default function Registro(): JSX.Element {
-  const { signup, errorMessage, hasError, isAuthenticated, successSignup } = useSessionContext()
+  const { signup, errorMessage, hasError, isAuthenticated, successSignup, isFetching } = useSessionContext()
   const [firstTry, setFirstTry] = useState<boolean>(true)
   const router = useRouter()
 
@@ -91,7 +92,14 @@ export default function Registro(): JSX.Element {
             />
           </div>
           <Button form='signupForm' level='primary' size='md' type='submit'>
-            Registrar
+            {isFetching ? (
+              <>
+                <LoaderSpinner color='#fff' size={20} />
+                Registrando...
+              </>
+            ) : (
+              'Registrar'
+            )}
           </Button>
         </form>
         <div className='divide-y-1 p-2'>

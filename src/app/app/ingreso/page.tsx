@@ -2,12 +2,14 @@
 import { Button, Input, Text } from '@/components/atoms'
 import { type ElementRef, type FormEventHandler, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
+import { LoaderSpinner } from '@/assets/svg'
 import { useRouter } from 'next/navigation'
 import { useSessionContext } from '@/contexts/Session'
 
 export default function Ingreso(): JSX.Element {
   const [firstTry, setFirstTry] = useState<boolean>(true)
-  const { login, passwordResetStatus, passwordReset, errorMessage, hasError, isAuthenticated } = useSessionContext()
+  const { login, passwordResetStatus, passwordReset, errorMessage, hasError, isAuthenticated, isFetching } =
+    useSessionContext()
   const router = useRouter()
 
   const [msg, setMsg] = useState<string>('')
@@ -88,7 +90,14 @@ export default function Ingreso(): JSX.Element {
             <Input id='password' name='password' ref={inputPasswordRef} required type='password' />
           </div>
           <Button form='loginForm' level='primary' size='md' type='submit'>
-            Ingresar
+            {isFetching ? (
+              <>
+                <LoaderSpinner color='#fff' size={20} />
+                Ingresando...
+              </>
+            ) : (
+              'Ingresar'
+            )}
           </Button>
         </form>
         <div className='divide-y-1 p-2'>
