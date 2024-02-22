@@ -21,9 +21,17 @@ export default function Checkbox({ fieldName, handleChange, label, state, value 
   }
 
   return (
-    <div className='flex gap-1'>
-      <input checked={state} id={inputId} name={fieldName} onChange={handleInputChange} type='checkbox' value={value} />
-      <label className='text-xs text-gray-700' htmlFor={inputId}>
+    <div className='flex'>
+      <input
+        checked={state}
+        className='p-1'
+        id={inputId}
+        name={fieldName}
+        onChange={handleInputChange}
+        type='checkbox'
+        value={value}
+      />
+      <label className='text-xs text-gray-700 p-1' htmlFor={inputId}>
         {label}
       </label>
     </div>
