@@ -1,7 +1,7 @@
 import { type ButtonHTMLAttributes, useMemo } from 'react'
 
 interface TextProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  readonly children: string
+  readonly children: React.ReactNode
   readonly classname?: string | undefined
   readonly size: 'xs' | 'sm' | 'md' | 'lg'
   readonly level: 'primary' | 'secondary' | 'tertiary'
@@ -47,7 +47,9 @@ export default function Button({
 
   return (
     <button
-      className={` ${sizeClass}  ${disable === true ? statusDisableClass : levelClass} ${classname}`}
+      className={`flex gap-1 justify-center items-center text-center  ${sizeClass}  ${
+        disable === true ? statusDisableClass : levelClass
+      } ${classname}`}
       disabled={disable}
       onClick={handleOnclick}
       // eslint-disable-next-line react/button-has-type

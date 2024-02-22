@@ -87,7 +87,7 @@ export default function SearchCum({
           {isFiltersOpen ? (
             <div className='flex flex-col gap-1'>
               <Text classname='text-xs  font-semibold'>Incluir los estados:</Text>
-              <div>
+              <div className='flex flex-col gap-[2px]'>
                 <Checkbox
                   fieldName='findOn'
                   handleChange={handleSearchOn}
