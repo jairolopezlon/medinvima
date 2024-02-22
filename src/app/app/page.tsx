@@ -26,37 +26,41 @@ export default function HomeApp(): React.JSX.Element {
 
   useEffect(() => {
     if (!isAuthenticated) {
-      router.push('/app/login')
+      router.push('/app/ingreso')
     }
-  }, [])
+  })
 
   return (
     <div className='flex flex-col gap-2'>
-      <SearchCum
-        handleSearchOn={handleSearchOn}
-        isFetching={isFetching}
-        searchCums={searchCums}
-        searchOn={searchOn}
-        setFindBy={setFindBy}
-        setValueToSearch={setValueToSearch}
-      />
-      <div className='bg-white p-4 flex flex-col gap-1 rounded-md'>
-        {isFirstFetching && !isFetching ? <CardInitialSearchItems /> : null}
-        {isFetching ? <SkeletonCardSearchingItems /> : null}
+      {isAuthenticated ? (
+        <>
+          <SearchCum
+            handleSearchOn={handleSearchOn}
+            isFetching={isFetching}
+            searchCums={searchCums}
+            searchOn={searchOn}
+            setFindBy={setFindBy}
+            setValueToSearch={setValueToSearch}
+          />
+          <div className='bg-white p-4 flex flex-col gap-1 rounded-md'>
+            {isFirstFetching && !isFetching ? <CardInitialSearchItems /> : null}
+            {isFetching ? <SkeletonCardSearchingItems /> : null}
 
-        {!isFetching && hasItems
-          ? itemsFound?.map((item) => (
-              <CumItemCard
-                consecutivesData={consecutivesData[item.expediente]}
-                cumData={item}
-                isFetchingConsecutives={isFetchingConsecutives}
-                key={`${item.expediente}-${item.principioactivo.replaceAll(' ', '-')}`}
-                searchConsecutives={searchConsecutives}
-              />
-            ))
-          : null}
-        {!isFetching && !hasItems && !isFirstFetching ? <CardItemsNotFound /> : null}
-      </div>
+            {!isFetching && hasItems
+              ? itemsFound?.map((item) => (
+                  <CumItemCard
+                    consecutivesData={consecutivesData[item.expediente]}
+                    cumData={item}
+                    isFetchingConsecutives={isFetchingConsecutives}
+                    key={`${item.expediente}-${item.principioactivo.replaceAll(' ', '-')}`}
+                    searchConsecutives={searchConsecutives}
+                  />
+                ))
+              : null}
+            {!isFetching && !hasItems && !isFirstFetching ? <CardItemsNotFound /> : null}
+          </div>
+        </>
+      ) : null}
     </div>
   )
 }
