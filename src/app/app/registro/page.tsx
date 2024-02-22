@@ -116,7 +116,7 @@ export default function Registro(): JSX.Element {
       {successSignup ? (
         <div className='bg-white w-full flex flex-col gap-2  px-4 py-6 rounded-md shadow-md max-w-md m-auto'>
           <Text classname='text-sm text-indigo-900'>
-            Se ha creado tu usuario, te enviamos un correo para que confirmes tu email y puedas ingresar
+            Se ha creado tu usuario, te redireccionaremos al formulario de ingreso, para que puedas ingresar
           </Text>
           <Link className='text-xs font-semibold text-indigo-400 hover:text-indigo-700' href='/app/ingreso'>
             Ir a Ingreso
