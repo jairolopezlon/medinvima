@@ -12,9 +12,7 @@ export default function Registro(): JSX.Element {
   const [firstTry, setFirstTry] = useState<boolean>(true)
   const router = useRouter()
 
-  const [msg, setMsg] = useState<string>('')
-  const [hasMsg, setHasMsg] = useState<boolean>(false)
-
+  const spanMsgComparePass = useRef<ElementRef<'span'>>(null)
   const inputEmailRef = useRef<ElementRef<'input'>>(null)
   const inputPasswordRef = useRef<ElementRef<'input'>>(null)
   const inputPasswordRepeatRef = useRef<ElementRef<'input'>>(null)
@@ -22,7 +20,6 @@ export default function Registro(): JSX.Element {
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (event): void => {
     event.preventDefault()
-    setHasMsg(false)
     setFirstTry(false)
     const email = inputEmailRef.current?.value.trim()
     const password = inputPasswordRef.current?.value.trim()
@@ -34,12 +31,12 @@ export default function Registro(): JSX.Element {
 
   const timeToWait = 500
   const comparePasswordValues = throttle(() => {
-    if (inputPasswordRef.current?.value.trim() === inputPasswordRepeatRef.current?.value.trim()) {
-      setMsg('✅ Las contraseñas coinciden')
-      setHasMsg(true)
-    } else {
-      setMsg('❗❗ Las contraseñas deben de coincidir')
-      setHasMsg(true)
+    if (spanMsgComparePass.current !== null) {
+      if (inputPasswordRef.current?.value.trim() === inputPasswordRepeatRef.current?.value.trim()) {
+        spanMsgComparePass.current.innerHTML = `Las contraseñas coinciden ✅`
+      } else {
+        spanMsgComparePass.current.innerHTML = 'Las contraseñas no coinciden ❗❗'
+      }
     }
   }, timeToWait)
 
@@ -79,8 +76,9 @@ export default function Registro(): JSX.Element {
             <Input id='password' name='password' ref={inputPasswordRef} required type='password' />
           </div>
           <div className='flex flex-col gap-1'>
-            <label className='text-indigo-800 text-sm' htmlFor='password'>
-              Repetir Contraseña:
+            <label className='flex justify-between items-end text-indigo-800 text-sm' htmlFor='password'>
+              <span>Repetir Contraseña:</span>
+              <span className='text-xs' ref={spanMsgComparePass} />
             </label>
             <Input
               id='passwordRepeat'
@@ -125,12 +123,7 @@ export default function Registro(): JSX.Element {
           </Link>
         </div>
       ) : null}
-      {hasMsg && firstTry ? (
-        <div className=' w-full flex flex-col gap-2 bg-white px-4 py-6 rounded-md shadow-md max-w-md m-auto'>
-          <Text classname='text-sm text-indigo-900'>{msg}</Text>
-        </div>
-      ) : null}
-      {hasError && firstTry ? (
+      {hasError && !firstTry ? (
         <div className='bg-red-50 w-full flex flex-col gap-2 border-red-100 border-1  px-4 py-6 rounded-md shadow-md max-w-md m-auto'>
           <Text classname='text-sm text-indigo-900'>❗❗ {errorMessage}</Text>
         </div>

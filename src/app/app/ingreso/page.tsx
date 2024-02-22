@@ -124,12 +124,12 @@ export default function Ingreso(): JSX.Element {
           </div>
         </div>
       </div>
-      {hasMsg && firstTry ? (
+      {hasMsg ? (
         <div className=' w-full flex flex-col gap-2 bg-white px-4 py-6 rounded-md shadow-md max-w-md m-auto'>
           <Text classname='text-sm text-indigo-900'>{msg}</Text>
         </div>
       ) : null}
-      {hasError && firstTry ? (
+      {hasError && !firstTry ? (
         <div className='bg-red-50 w-full flex flex-col gap-2 border-red-100 border-1  px-4 py-6 rounded-md shadow-md max-w-md m-auto'>
           <Text classname='text-sm text-indigo-900'>❗❗ {errorMessage}</Text>
         </div>
