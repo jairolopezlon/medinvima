@@ -44,7 +44,7 @@ export default function SearchCum({
   }
 
   return (
-    <div className='p-4 bg-white shadow-lg rounded-md'>
+    <div className='p-4 bg-white shadow-lg rounded-md min-w-min'>
       <form action='' className='flex flex-col gap-4' onSubmit={handleSearchSubmit}>
         <div className='flex flex-1 gap-2 items-center'>
           <label className='text-blue-900 text-xs' htmlFor='findBySelect'>
@@ -62,15 +62,15 @@ export default function SearchCum({
             <option value='atc'>ATC</option>
           </select>
         </div>
-        <div className='flex flex-1 gap-2'>
+        <div className='flex flex-1 gap-2 flex-wrap justify-end'>
           <input
-            className='flex-1 text-sm rounded-md px-2 border-indigo-200 border-1 text-blue-900 '
+            className='flex-1 text-sm rounded-md px-2 py-2  border-indigo-200 border-1 text-blue-900 '
             name='valueToSearch'
             onChange={handleInputSearch}
             type='text'
           />
           <Button
-            classname={`bg-gradient-to-tl from-indigo-400 to-blue-400 text-blue-50 ${isFetching && 'cursor-wait'}`}
+            classname={`bg-gradient-to-tl  from-indigo-400 to-blue-400 text-blue-50 ${isFetching && 'cursor-wait'}`}
             disable={isFetching}
             handleClick={handleSearch}
             level='primary'

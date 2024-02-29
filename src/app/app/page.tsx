@@ -42,7 +42,7 @@ export default function HomeApp(): React.JSX.Element {
             setFindBy={setFindBy}
             setValueToSearch={setValueToSearch}
           />
-          <div className='bg-white p-4 flex flex-col gap-1 rounded-md'>
+          <div className='bg-white p-4 flex flex-col gap-1 rounded-md min-w-min'>
             {isFirstFetching && !isFetching ? <CardInitialSearchItems /> : null}
             {isFetching ? <SkeletonCardSearchingItems /> : null}
 
