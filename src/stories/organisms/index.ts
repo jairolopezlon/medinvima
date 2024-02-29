@@ -1,1 +1,6 @@
 export { default as ConsecutiveListItems } from './ConsecutiveListItems/ConsecutiveListItems'
+export { default as Hero } from './Hero/Hero'
+export { default as HomeContact } from './HomeContact/HomeContact'
+export { default as HomeFooter } from './HomeFooter/HomeFooter'
+export { default as HomeNextFeatures } from './HomeNextFeatures/HomeNextFeatures'
+export { default as OnboardingUseApp } from './OnboardingUseApp/OnboardingUseApp'
