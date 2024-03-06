@@ -18,6 +18,7 @@ export default function HomeContact({ customClass }: Props): JSX.Element {
             className=' py-3 px-6 text-center self-center rounded-md border-2 border-indigo-400 text-indigo-400 font-semibold text-md hover:bg-indigo-50 hover:border-indigo-600 hover:text-indigo-600 max-sm:text-sm'
             href='https://wa.me/+573205911272'
             rel='noreferrer'
+            style={{ WebkitTapHighlightColor: 'transparent' }}
             target='_blank'
           >
             Escríbeme en WhatsApp
@@ -26,6 +27,7 @@ export default function HomeContact({ customClass }: Props): JSX.Element {
             className=' py-3 px-6 text-center self-center rounded-md border-2 border-indigo-400 text-indigo-400 font-semibold text-md hover:bg-indigo-50 hover:border-indigo-600 hover:text-indigo-600 max-sm:text-sm'
             href='https://www.linkedin.com/in/jairolopezlon/'
             rel='noreferrer'
+            style={{ WebkitTapHighlightColor: 'transparent' }}
             target='_blank'
           >
             Agrégame en LinkedIn
