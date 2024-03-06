@@ -10,7 +10,7 @@ export default function SkeletonCardSearchingItems({ customClass }: Props): JSX.
   return (
     <Skeleton customClass='!flex-col sm:!flex-row gap-1 p-4' height={150} radius={4}>
       <LoaderSpinner color='#999' size={24} />
-      <Text classname='font-semibold dark:text-gray-50 text-center text-sm' unselectable>
+      <Text classname='font-semibold dark:text-gray-50 text-center text-sm' unselectable='on'>
         Buscando registros sanitarios...
       </Text>
     </Skeleton>
