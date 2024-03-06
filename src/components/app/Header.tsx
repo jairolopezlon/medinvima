@@ -14,7 +14,7 @@ export default function AppHeader(): React.JSX.Element {
   }
 
   return (
-    <header className='flex justify-between bg-gradient-to-tl from-indigo-50 to-blue-50 py-2 px-4 border-b-1 border-b-indigo-200 sticky top-0 z-10'>
+    <header className='flex justify-between bg-white py-2 px-4 border-b-1 border-b-indigo-200 sticky top-0 z-10'>
       <div className='brand'>
         <span className='nameApp bg-gradient-to-r  from-indigo-600 to-blue-600 inline-block text-transparent bg-clip-text font-bold'>
           MedInvima
