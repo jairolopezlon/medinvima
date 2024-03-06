@@ -5,8 +5,8 @@ interface Props {
 
 export default function OnboardingUseApp({ customClass }: Props): JSX.Element {
   return (
-    <div className='flex items-center justify-center bg-indigo-50'>
-      <div className='flex flex-col p-4 items-center justify-center max-w-6xl gap-4 my-20'>
+    <div className='flex items-center justify-center bg-indigo-50/90'>
+      <div className='flex flex-col p-4 items-center justify-center max-w-6xl gap-8 my-20'>
         <Text classname='text-indigo-500 font-semibold text-3xl max-md:text-xl text-center drop-shadow-md'>
           En pocos pasos puedes hacer consultas de registros sanitarios
         </Text>
