@@ -31,7 +31,7 @@ interface SessionData {
   validateSession: () => void
 }
 
-const TIMEOUT = 10000
+const TIMEOUT = 5000
 
 const SessionContext = createContext<SessionData | undefined>(UNDEFINED)
 
@@ -175,7 +175,6 @@ export default function SessionProvider({ children }: SessionProviderProps): JSX
       const userData: UserDataResponse = result
       setLocalData(userData)
       setIsAuthenticated(true)
-      router.push('/app')
     })
   }
 
