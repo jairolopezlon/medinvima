@@ -28,7 +28,13 @@ export default function HomeApp(): React.JSX.Element {
     if (!isAuthenticated) {
       router.push('/app/ingreso')
     }
-  })
+  }, [])
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      router.push('/app/ingreso')
+    }
+  }, [isAuthenticated])
 
   return (
     <div className='flex flex-col gap-2'>
