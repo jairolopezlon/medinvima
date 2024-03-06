@@ -38,8 +38,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { readonly children: React.ReactNode }): React.JSX.Element {
   return (
-    <html className={`bg-gradient-to-tl from-indigo-50 to-blue-50 `} lang='en'>
-      <body className={`bg-gradient-to-tl from-indigo-50 to-blue-50 ${inter.className}`}>
+    <html lang='es'>
+      <body className={`${inter.className}`}>
         <SessionProvider>
           <Header />
           <main className='flex flex-col'>{children}</main>
