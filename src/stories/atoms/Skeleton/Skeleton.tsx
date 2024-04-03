@@ -39,7 +39,7 @@ export default function Skeleton({
   return (
     <div className='animate-pulse'>
       <div
-        className={`bg-gray-300 dark:bg-gray-600 flex flex-col justify-center items-center  ${customClass ?? ''}`}
+        className={`bg-gray-200 dark:bg-gray-600 flex flex-col justify-center items-center  ${customClass ?? ''}`}
         style={customStyles}
       >
         {children}
