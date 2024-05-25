@@ -1,4 +1,5 @@
 import './globals.css'
+import { GoogleTagManager } from '@next/third-parties/google'
 import Header from '@/components/app/Header'
 import { Inter } from 'next/font/google'
 import { type Metadata } from 'next'
@@ -39,6 +40,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { readonly children: React.ReactNode }): React.JSX.Element {
   return (
     <html lang='es'>
+      <GoogleTagManager gtmId='G-D4JGJQCZTC' />
       <body className={`${inter.className}`}>
         <SessionProvider>
           <Header />
